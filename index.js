@@ -1,5 +1,6 @@
 const { Client, Intents} = require("discord.js");
-const generateImage = require("./generateImage")
+const checkWelcome = require("./checkWelcome");
+const generateImage = require("./generateImage");
 
 
 const async = require("async");
@@ -15,107 +16,50 @@ const client = new Client({
 
 
 
-// async function EmbedAsync (member) {
-//   const name = member.user
-//   let embed = await new MessageEmbed()
 
-//   .setColor("#7c2ae8")
-//   .setAuthor(name.tag, name.displayAvatarURL())
-//   .setTitle(`Welcome!`)
-//   .setDescription(`Welcome to the discord!`  + (name) +'! You are the ' + (guild.memberCount) +'th member!')
-//   .setImage("https://media3.giphy.com/media/mCbUi0FyYhHHhutEV8/giphy.gif")
-//   return channel.send({ embeds: [embed] })
-// }
+function sleep(num) {
+	let now = new Date();
+	const stop = now.getTime() + num;
+	while(true) {
+		now = new Date();
+		if(now.getTime() > stop) return;
+	}
+}
+
+
+
+
 
 client.on("ready", () => {
   let channel = "974277002372722689"
   console.log(`Logged in as ${client.user.tag}!`);
 
-  
+
                      
          }
      );
 
 
 client.once("ready", () => {
-  function presence() {
-   // let status = ['<help for help'] //you can add how many you like
-    //let rstatus = Math.floor(Math.random() * status.length); //this chooses a status from the ones you typed up
-    client.user.setPresence({
-        status: "online", //you can change to offline, dnd
-        game: {
-          name: "xHamster",
-          type: "WATCHING"
-        }})
-                    
-        }
+  client.user.setActivity('xHamster', { type: 'WATCHING'});
     });
 
 
-const welcomeChannelId = '974277002372722689'
+// const welcomeChannelId = '975216440204460063'
+
+
 
 client.on('guildMemberAdd', async (member) => {
-  const img = await generateImage(member)
-
-  member.guild.channels.cache.get(welcomeChannelId).send({
-    content: `<@${member.id}> Welcome to the server! You are the ${member.guild.memberCount}th member!`,
-    files: [img]
-    })
-
-//   member.createDM().then(function (channel) {
-    
-    
-//     let botChannel = "670544966442811405";
-//     const sendMessage = (message) => {
-//       client.channels.cache.get(botChannel).send('Welcome ' + (member.username) +'! You are the ' + (guild.memberCount) +'th member!');
-//     };
-//   return channel.send('Welcome ' + (member.username) +'! You are the ' + (members) +'th member!')
-//   }
-
-//   )
-}
- );
-
-
-
-
-
-
-
-//  client.on("guildMemberAdd", async (member) => {  
-//   let name = member.user
-
-//   if (guild != member.guild) {
-//   return console.log("erro");
-//   } else {
-//   let embed = await new Discord.MessageEmbed()
-//   .setColor("#7c2ae8")
-//   .setAuthor(member.user.tag, member.user.displayAvatarURL())
-//   .setTitle(`Welcome!`)
-//   .setDescription(`Welcome to the discord!`  + (name) +'! You are the ' + (msg.guild.memberCount) +'th member!')
-//   .setImage("https://media3.giphy.com/media/mCbUi0FyYhHHhutEV8/giphy.gif")
+  const welcome = await checkWelcome(member)
   
-//   return channel.send("****You Have Been Verified. :ballot_box_with_check:****")
-//    }
-//  }
-//  )})
+  console.log((`Welcome <@${member.id}>! You are the ${member.guild.memberCount} +th member!`));
+
+  
+})
 
 
 
-
-// client.on("guildMemberAdd", async(member, count) => {
-//   let botchannel = "974277002372722689"
-//   let name = member.user
-//   const sendMessage = (message) => {
-//     client.channels.cache.get(botchannel).send(message);
-//   }
-
-//   sendMessage(('This server has' + count +' members'))
-
-//   sendMessage(('Welcome ' + (name) +'! You are the ' + (msg.guild.memberCount) +'th member!'))
-// }
-// );
-
+  
 
 
 
@@ -132,6 +76,7 @@ client.on("messageCreate", async (msg) => {
   let name = ''
 
 
+
   const sendMessage = (message) => {
     client.channels.cache.get(botChannel).send(message);
   };
@@ -139,7 +84,7 @@ client.on("messageCreate", async (msg) => {
   // const embed = (message) => {
   //   client.channels.cache.get(botChannel).URL('twitch.tv');
   // };
-  console.log(('Welcome ' + (msg.author.username) +'! You are the ' + (msg.guild.memberCount) +'th member!'));
+  
 
 
 
@@ -181,14 +126,15 @@ client.on("messageCreate", async (msg) => {
     }
   } 
   else {
-    sendMessage("This is not a bot channel");
-    if (message.author == client.user){
-      return}
+    msg.reply("This is not a bot channel");
+
   }
 
   // if (msg.content === "Hello") {
   //   sendMessage("Hello!");
   // }
 })
+
+
 
 client.login(TOKEN);
