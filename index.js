@@ -11,17 +11,17 @@ const client = new Client({
 });
 
 
-const Responses = [
+var fartList = [
   "farts/fart-01.mp3",
   "farts/fart-02.mp3",
   "farts/fart-03.mp3",
   "farts/fart-04.mp3",
   "farts/fart-05.mp3",
 ];
-const Response = Math.floor(Math.random() * Responses.length);
+const randomFart = fartList[Math.floor(Math.random() * fartList.length)]
 
-console.log(Responses[Response])
-const farts = new MessageAttachment(`${Responses[Response]}`, "fart.mp3")
+
+
 
 
 
@@ -33,7 +33,11 @@ client.on("ready", () => {
   console.log(`|Logged in as ${client.user.tag}!|`);
   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
 
-
+  console.log(fartList[Math.floor(Math.random() * fartList.length)])
+  console.log(fartList[Math.floor(Math.random() * fartList.length)])
+  console.log(fartList[Math.floor(Math.random() * fartList.length)])
+  console.log(fartList[Math.floor(Math.random() * fartList.length)])
+  console.log(fartList[Math.floor(Math.random() * fartList.length)])
   
 
                      
@@ -75,6 +79,12 @@ client.on("messageCreate", async (msg) => {
 
   let channel = msg.channelId;
   let botChannel = "670544966442811405";
+  const farts = new MessageAttachment(fartList[Math.floor(Math.random() * fartList.length)], "fart.mp3")
+
+  
+
+
+
 
   let name = ''
 
