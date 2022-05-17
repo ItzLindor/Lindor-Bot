@@ -17,6 +17,12 @@ var fartList = [
   "farts/fart-03.mp3",
   "farts/fart-04.mp3",
   "farts/fart-05.mp3",
+  "farts/fart-06.mp3",
+  "farts/fart-07.mp3",
+  "farts/fart-08.mp3",
+  "farts/fart-09.mp3",
+  "farts/fart-10.mp3",
+  "farts/fart-11.mp3",
 ];
 const randomFart = fartList[Math.floor(Math.random() * fartList.length)]
 
