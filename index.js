@@ -23,7 +23,9 @@ const client = new Client({
 
 client.on("ready", () => {
   let channel = "974277002372722689"
-  console.log(`Logged in as ${client.user.tag}!`);
+  console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+  console.log(`|Logged in as ${client.user.tag}!|`);
+  console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
 
 
                      
