@@ -136,7 +136,7 @@ client.on("messageCreate", async (msg) => {
       let admins = ["OhLindor#8465", Owner];
 
       // let isAdmin = `${msg.author.username}#${msg.author.discriminator}` in admins;
-      let isAdmin = msg.member.roles.cache.find(role => role.name === "Admin");
+      let isAdmin = msg.member.roles.cache.find(role => role.name === "Mod");
       
       
       //sends command responses
