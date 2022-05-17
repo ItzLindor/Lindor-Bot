@@ -103,7 +103,9 @@ client.on("messageCreate", async (msg) => {
   }
 
   if (msg.content === ('fart')) {
-    msg.reply("FART");
+    msg.reply({
+      files: [farts]
+    });
   }
   if (msg.content === ('Fart')) {
     msg.reply({
