@@ -3,6 +3,7 @@ const checkWelcome = require("./checkWelcome");
 const generateImage = require("./generateImage");
 const async = require("async");
 
+
 require('dotenv').config()
 const TOKEN = process.env.TOKEN
 
@@ -39,11 +40,6 @@ client.on("ready", () => {
   console.log(`|Logged in as ${client.user.tag}!|`);
   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
 
-  console.log(fartList[Math.floor(Math.random() * fartList.length)])
-  console.log(fartList[Math.floor(Math.random() * fartList.length)])
-  console.log(fartList[Math.floor(Math.random() * fartList.length)])
-  console.log(fartList[Math.floor(Math.random() * fartList.length)])
-  console.log(fartList[Math.floor(Math.random() * fartList.length)])
   
 
                      
@@ -107,15 +103,13 @@ client.on("messageCreate", async (msg) => {
 
 
 
- conditions = ["ping", "Ping"];
-
   if (msg.content ===('ping')) { 
     msg.reply("pong", {
       files: [farts]
     });
   }
   if (msg.content === ('Ping')) {
-    msg.reply("pong");
+    msg.reply("Pong");
   }
 
   if (msg.content === ('fart')) {
