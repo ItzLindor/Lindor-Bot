@@ -101,7 +101,12 @@ client.on("messageCreate", async (msg) => {
   // };
   
 
-
+  if (msg.content ===('!stats')) {
+    sendMessage(`This server has ${msg.guild.memberCount} members`)
+  } 
+  if (msg.content ===('!Stats')) {
+    sendMessage(`This server has ${msg.guild.memberCount} members`)
+  } 
 
   if (msg.content ===('ping')) { 
     msg.reply("pong", {
