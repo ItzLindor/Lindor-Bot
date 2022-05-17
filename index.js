@@ -92,6 +92,13 @@ client.on("messageCreate", async (msg) => {
     msg.reply("pong");
   }
 
+  if (msg.content === ('fart')) {
+    msg.reply("FART");
+  }
+  if (msg.content === ('Fart')) {
+    msg.reply("FART");
+  }
+
   if (channel === botChannel) {
     if (message.startsWith(prefix)) {
       const command = message.slice(prefix.length).split("!")[0];
