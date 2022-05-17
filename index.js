@@ -158,7 +158,6 @@ client.on("messageCreate", async (msg) => {
     }
   } 
   else {
-    msg.reply("This is not a bot channel");
 
   }
 
