@@ -102,7 +102,7 @@ client.on("messageCreate", async (msg) => {
   
 
   if (msg.content ===('!stats')) {
-    sendMessage(`This server has ${msg.guild.memberCount} members`)
+    msg.channelId.send(`This server has ${msg.guild.memberCount} members`)
   } 
   if (msg.content ===('!Stats')) {
     sendMessage(`This server has ${msg.guild.memberCount} members`)
