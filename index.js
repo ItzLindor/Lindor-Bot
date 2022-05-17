@@ -90,7 +90,7 @@ client.on("messageCreate", async (msg) => {
 
   let name = ''
 
-
+  
 
   const sendMessage = (message) => {
     client.channels.cache.get(botChannel).send(message);
@@ -102,10 +102,10 @@ client.on("messageCreate", async (msg) => {
   
 
   if (msg.content ===('!stats')) {
-    msg.channelId.send(`This server has ${msg.guild.memberCount} members`)
+    client.channels.cache.get(msg.channelId).send(`This server has ${msg.guild.memberCount} members`)
   } 
   if (msg.content ===('!Stats')) {
-    sendMessage(`This server has ${msg.guild.memberCount} members`)
+    client.channels.cache.get(msg.channelId).send(`This server has ${msg.guild.memberCount} members`)
   } 
 
   if (msg.content ===('ping')) { 
