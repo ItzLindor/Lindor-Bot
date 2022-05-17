@@ -1,21 +1,27 @@
-const { Client, Intents} = require("discord.js");
+const { Client, Intents, MessageAttachment} = require("discord.js");
 const checkWelcome = require("./checkWelcome");
 const generateImage = require("./generateImage");
-
-
 const async = require("async");
 
 require('dotenv').config()
 const TOKEN = process.env.TOKEN
-
-
 
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_PRESENCES],
 });
 
 
+const Responses = [
+  "farts/fart-01.mp3",
+  "farts/fart-02.mp3",
+  "farts/fart-03.mp3",
+  "farts/fart-04.mp3",
+  "farts/fart-05.mp3",
+];
+const Response = Math.floor(Math.random() * Responses.length);
 
+console.log(Responses[Response])
+const farts = new MessageAttachment(`${Responses[Response]}`, "fart.mp3")
 
 
 
@@ -26,7 +32,9 @@ client.on("ready", () => {
   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
   console.log(`|Logged in as ${client.user.tag}!|`);
   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
-  client.user.setAvatar('image.png');
+
+
+  
 
                      
          }
@@ -85,9 +93,11 @@ client.on("messageCreate", async (msg) => {
 
  conditions = ["ping", "Ping"];
 
-  if (msg.content ===('ping')){ 
-    msg.reply("pong");
-}
+  if (msg.content ===('ping')) { 
+    msg.reply("pong", {
+      files: [farts]
+    });
+  }
   if (msg.content === ('Ping')) {
     msg.reply("pong");
   }
@@ -96,7 +106,9 @@ client.on("messageCreate", async (msg) => {
     msg.reply("FART");
   }
   if (msg.content === ('Fart')) {
-    msg.reply("FART");
+    msg.reply({
+      files: [farts]
+    });
   }
 
   if (channel === botChannel) {
