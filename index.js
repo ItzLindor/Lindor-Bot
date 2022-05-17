@@ -26,7 +26,7 @@ client.on("ready", () => {
   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
   console.log(`|Logged in as ${client.user.tag}!|`);
   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
-
+  client.user.setAvatar('image.png');
 
                      
          }
@@ -34,6 +34,7 @@ client.on("ready", () => {
 
 
 client.once("ready", () => {
+  
   client.user.setActivity('xHamster', { type: 'WATCHING'});
     });
 
@@ -59,6 +60,7 @@ client.on('guildMemberAdd', async (member) => {
 
 
 client.on("messageCreate", async (msg) => {
+  const Owner = msg.guild.ownerId
   if (msg.author.bot) return; // Ignore all bots
   let prefix = "!";
   let message = await msg.content;
@@ -94,7 +96,7 @@ client.on("messageCreate", async (msg) => {
     if (message.startsWith(prefix)) {
       const command = message.slice(prefix.length).split("!")[0];
 
-      let admins = ["OhLindor#8465"];
+      let admins = ["OhLindor#8465", Owner];
 
       // let isAdmin = `${msg.author.username}#${msg.author.discriminator}` in admins;
       let isAdmin = msg.member.roles.cache.find(role => role.name === "Admin");
