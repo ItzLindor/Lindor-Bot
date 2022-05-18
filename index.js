@@ -96,17 +96,9 @@ client.on("messageCreate", async (msg) => {
     client.channels.cache.get(botChannel).send(message);
   };
 
-  // const embed = (message) => {
-  //   client.channels.cache.get(botChannel).URL('twitch.tv');
-  // };
   
 
-  if (msg.content ===('!stats')) {
-    client.channels.cache.get(msg.channelId).send(`This server has ${msg.guild.memberCount} members`)
-  } 
-  if (msg.content ===('!Stats')) {
-    client.channels.cache.get(msg.channelId).send(`This server has ${msg.guild.memberCount} members`)
-  } 
+ 
 
   if (msg.content ===('ping')) { 
     msg.reply("pong", {
@@ -115,17 +107,6 @@ client.on("messageCreate", async (msg) => {
   }
   if (msg.content === ('Ping')) {
     msg.reply("Pong");
-  }
-
-  if (msg.content === ('fart')) {
-    msg.reply({
-      files: [farts]
-    });
-  }
-  if (msg.content === ('Fart')) {
-    msg.reply({
-      files: [farts]
-    });
   }
 
   if (channel === botChannel) {
@@ -139,15 +120,20 @@ client.on("messageCreate", async (msg) => {
       
       
       //sends command responses
-      switch (command) {
+      switch (command.toLowerCase()) {
         case "stats":
-          isAdmin
-            ? sendMessage(`This server has ${msg.guild.memberCount} members`)
-            : sendMessage("You are not an admin");
+          
+          sendMessage(`This server has ${msg.guild.memberCount} members`)
+            
           break;
 
+        case "fart":
+
+          msg.reply({files: [farts]});
+          break
+
         case "help":
-          sendMessage("This is a help command");
+          sendMessage("!stats will show how many members are in this server \n!fart will respond with a random fart sound \n \"Ping/ping\" will reply with \"Pong/pong\" respectively");
           break;
 
         // case "embed":
