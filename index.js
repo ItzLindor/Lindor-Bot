@@ -93,7 +93,7 @@ client.on("messageCreate", async (msg) => {
   
 
   const sendMessage = (message) => {
-    client.channels.cache.get(botChannel).send(message);
+    client.channels.cache.get(channel).send(message);
   };
 
   
@@ -109,42 +109,42 @@ client.on("messageCreate", async (msg) => {
     msg.reply("Pong");
   }
 
-  if (channel === botChannel) {
-    if (message.startsWith(prefix)) {
-      const command = message.slice(prefix.length).split("!")[0];
+ 
+  if (message.startsWith(prefix)) {
+    const command = message.slice(prefix.length).split("!")[0];
 
-      let admins = ["OhLindor#8465", Owner];
+    let admins = ["OhLindor#8465", Owner];
 
-      // let isAdmin = `${msg.author.username}#${msg.author.discriminator}` in admins;
-      let isAdmin = msg.member.roles.cache.find(role => role.name === "Mod");
-      
-      
-      //sends command responses
-      switch (command.toLowerCase()) {
-        case "stats":
+    // let isAdmin = `${msg.author.username}#${msg.author.discriminator}` in admins;
+    let isAdmin = msg.member.roles.cache.find(role => role.name === "Mod");
+    
+    
+    //sends command responses
+    switch (command.toLowerCase()) {
+      case "stats":
+        
+        sendMessage(`This server has ${msg.guild.memberCount} members`)
           
-          sendMessage(`This server has ${msg.guild.memberCount} members`)
-            
-          break;
+        break;
 
-        case "fart":
+      case "fart":
 
-          msg.reply({files: [farts]});
-          break
+        msg.reply({files: [farts]});
+        break
 
-        case "help":
-          sendMessage("!stats will show how many members are in this server \n!fart will respond with a random fart sound \n \"Ping/ping\" will reply with \"Pong/pong\" respectively");
-          break;
+      case "help":
+        sendMessage("!stats will show how many members are in this server \n!fart will respond with a random fart sound \n \"Ping/ping\" will reply with \"Pong/pong\" respectively");
+        break;
 
-        // case "embed":
-        //   sendMessage("This is a help command");
-        //   break;
-      }
+      // case "embed":
+      //   sendMessage("This is a help command");
+      //   break;
     }
-  } 
+  }
+ 
   else {
 
-  }
+ }
 
   // if (msg.content === "Hello") {
   //   sendMessage("Hello!");
