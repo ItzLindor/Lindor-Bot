@@ -130,7 +130,13 @@ client.on("messageCreate", async (msg) => {
       case "fart":
 
         msg.reply({files: [farts]});
-        break
+        break;
+      
+      case "dabtime":
+      
+        sendMessage(`You can't spell \"Healthcare\" without \"THC\"!`)
+          
+        break;
 
       case "help":
         sendMessage("!stats will show how many members are in this server \n!fart will respond with a random fart sound \n \"Ping/ping\" will reply with \"Pong/pong\" respectively");
