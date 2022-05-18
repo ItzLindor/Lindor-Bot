@@ -138,6 +138,13 @@ client.on("messageCreate", async (msg) => {
           
         break;
 
+      case 'smelly':
+        msg.reply(`<@${msg.author.id}> is ${Math.floor(Math.random() * (1000 - 1 + 1) + 1)}% smelly!`)
+        break;
+
+      case 'love':
+        msg.reply(`<@${msg.author.id}> is loved ${Math.floor(Math.random() * (1000 - 1 + 1) + 1)}%!`)
+        break;
       case "help":
         sendMessage("!stats will show how many members are in this server \n!fart will respond with a random fart sound \n!dabtime will state straight facts \n\"Ping/ping\" will reply with \"Pong/pong\" respectively");
         break;
