@@ -139,7 +139,7 @@ client.on("messageCreate", async (msg) => {
         break;
 
       case "help":
-        sendMessage("!stats will show how many members are in this server \n!fart will respond with a random fart sound \n \"Ping/ping\" will reply with \"Pong/pong\" respectively");
+        sendMessage("!stats will show how many members are in this server \n!fart will respond with a random fart sound \n!dabtime will state straight facts \n\"Ping/ping\" will reply with \"Pong/pong\" respectively");
         break;
 
       // case "embed":
