@@ -201,10 +201,6 @@ client.on("presenceUpdate", async (oldPresence, newPresence) => {
       console.log(`${member.user.username} is streaming at ${activity.url}.`);
       liveChannel.send(`${member.user.username} is streaming at ${activity.url}.`)
        }
-    else {
-      liveChannel.send(`${member.user.username} is playing ${activity.name}.`)
-
-      }
     })
     
       
