@@ -1,6 +1,7 @@
-const { Client, Intents, MessageAttachment} = require("discord.js");
+const { Client, Intents, MessageAttachment, Presence} = require("discord.js");
 const checkWelcome = require("./checkWelcome");
 const generateImage = require("./generateImage");
+const createLive = require("./createLive");
 const async = require("async");
 
 
@@ -75,6 +76,7 @@ client.on('guildMemberAdd', async (member) => {
 
 client.on("messageCreate", async (msg) => {
   const Owner = msg.guild.ownerId
+  
   if (msg.author.bot) return; // Ignore all bots
   let prefix = "!";
   let message = await msg.content;
@@ -155,9 +157,7 @@ client.on("messageCreate", async (msg) => {
     }
   }
  
-  else {
-
- }
+  
 
   // if (msg.content === "Hello") {
   //   sendMessage("Hello!");
@@ -165,5 +165,75 @@ client.on("messageCreate", async (msg) => {
 })
 
 
+
+client.on("presenceUpdate", async (oldPresence, newPresence) => {
+  if (newPresence.user.bot) return;
+
+  let liveChannel = newPresence.guild.channels.cache.find(channel => channel.name === "live-now")
+  liveChannel.messages.fetch({ limit: 100 }).then(messages => {
+    console.log(`Received ${messages.size} messages`);
+    //Iterate through the messages here with the variable "messages".
+    messages.forEach(message => {
+
+      if (message.content.includes(member.user.username)) message.delete()
+
+    })
+  })
+  
+  
+  const member = newPresence.member;
+  let activities = member.presence.activities[1];
+
+  const live = await createLive(newPresence)
+
+  
+  console.log(newPresence.activities)
+  
+
+
+  
+  //console.log('outside of create function')
+  //console.log(liveChannel)
+  // if (!newPresence.activities) return false;
+  newPresence.activities.forEach(activity => {
+    if (newPresence.user.bot) return;
+    if (activity.type == "STREAMING") {
+      console.log(`${member.user.username} is streaming at ${activity.url}.`);
+      liveChannel.send(`${member.user.username} is streaming at ${activity.url}.`)
+       }
+    else {
+      liveChannel.send(`${member.user.username} is playing ${activity.name}.`)
+
+      }
+    })
+    
+      
+    
+  
+  // newPresence.guild
+  //if (activities && (activities.state.includes('TWITCH'))) {
+  //   console.log("user is live on twitch")
+  //     return ;
+  // }
+  // else if (member.guild.channels.cache.fetch(role.id)) {
+  //     newPresence.member.roles.remove(role);
+  // }
+
+//}
+  
+
+})
+
+
+
+
+
+
+
+
+
+
+
+   
 
 client.login(TOKEN);
