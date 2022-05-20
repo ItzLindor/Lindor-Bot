@@ -28,13 +28,14 @@ const createLive = async (newPresence) => {
         .then(result => {
           //console.log(result.id)
           //member.guild.channels.cache.get(result.id).send()
-          
+          return result.id
         })
        
     }
 
     else{
-      //console.log(liveChannel)
+      console.log(liveChannel)
+      return liveChannel
     }
 
   

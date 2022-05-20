@@ -89,7 +89,6 @@ client.on("messageCreate", async (msg) => {
 
 
 
-
   let name = ''
 
   
@@ -168,10 +167,13 @@ client.on("messageCreate", async (msg) => {
 
 client.on("presenceUpdate", async (oldPresence, newPresence) => {
   if (newPresence.user.bot) return;
+  const live = await createLive(newPresence)
 
-  let liveChannel = newPresence.guild.channels.cache.find(channel => channel.name === "live-now")
-  liveChannel.messages.fetch({ limit: 100 }).then(messages => {
+  
+  let StreamChannel = newPresence.guild.channels.cache.find(channel => channel.name === "live-now")
+  StreamChannel.messages.fetch({ limit: 100 }).then(messages => {
     console.log(`Received ${messages.size} messages`);
+    if (oldPresence == newPresence) return;
     //Iterate through the messages here with the variable "messages".
     messages.forEach(message => {
 
@@ -184,7 +186,7 @@ client.on("presenceUpdate", async (oldPresence, newPresence) => {
   const member = newPresence.member;
   let activities = member.presence.activities[1];
 
-  const live = await createLive(newPresence)
+  
 
   
   console.log(newPresence.activities)
@@ -197,10 +199,16 @@ client.on("presenceUpdate", async (oldPresence, newPresence) => {
   // if (!newPresence.activities) return false;
   newPresence.activities.forEach(activity => {
     if (newPresence.user.bot) return;
+
     if (activity.type == "STREAMING") {
-      console.log(`${member.user.username} is streaming at ${activity.url}.`);
-      liveChannel.send(`${member.user.username} is streaming at ${activity.url}.`)
+      if (oldPresence == newPresence) return;
+
+    console.log(`${member.user.username} is streaming at ${activity.url}.`);
+    StreamChannel.send(`${member.user.username} is streaming at ${activity.url}.`)
        }
+    
+
+      })
     })
     
       
@@ -218,7 +226,7 @@ client.on("presenceUpdate", async (oldPresence, newPresence) => {
 //}
   
 
-})
+
 
 
 
