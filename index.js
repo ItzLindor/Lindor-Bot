@@ -167,49 +167,67 @@ client.on("messageCreate", async (msg) => {
 
 client.on("presenceUpdate", async (oldPresence, newPresence) => {
   if (newPresence.user.bot) return;
-  const live = await createLive(newPresence)
 
+  const member = newPresence.member;
+  const live = await createLive(newPresence)    //Checks for live-now channel
+  let activities = member.presence.activities;
   
-  let StreamChannel = newPresence.guild.channels.cache.find(channel => channel.name === "live-now")
-  StreamChannel.messages.fetch({ limit: 100 }).then(messages => {
+  let StreamChannel = newPresence.guild.channels.cache.find(channel => channel.name === "live-now") //finds live-now channel to fetch/send messages
+  // StreamChannel.messages.fetch({ limit: 100 }).then(messages => {
+  //   console.log(`Received ${messages.size} messages`);
+
+  //   if (oldPresence == newPresence) return;                          //If user is still streaming delete message 
+   
+  //   messages.forEach(message => {                                   //Iterate through the messages here with the variable "messages".
+ 
+  //     if (message.content.includes(member.user.username)) message.delete()
+
+  //  })
+  // })
+  
+
+  console.log(`activities variable: ${activities[0]}`)
+  if (!activities.includes('type')) {          //If streaming, send message to live-now channel
+    StreamChannel.messages.fetch({ limit: 100 }).then(messages => {
     console.log(`Received ${messages.size} messages`);
-    if (oldPresence == newPresence) return;
-    //Iterate through the messages here with the variable "messages".
-    messages.forEach(message => {
+ 
+    messages.forEach(message => {                                   //Iterate through the messages here with the variable "messages".
 
       if (message.content.includes(member.user.username)) message.delete()
 
-    })
-  })
-  
-  
-  const member = newPresence.member;
-  let activities = member.presence.activities[1];
-
-  
-
-  
-  console.log(newPresence.activities)
-  
+ })
+})
+  }
 
 
-  
-  //console.log('outside of create function')
-  //console.log(liveChannel)
-  // if (!newPresence.activities) return false;
-  newPresence.activities.forEach(activity => {
+  newPresence.activities.forEach(activity => {    //for each new activity
     if (newPresence.user.bot) return;
 
-    if (activity.type == "STREAMING") {
-      if (oldPresence == newPresence) return;
+    
+    if (activity.type === "STREAMING") {          //If streaming, send message to live-now channel
+      console.log(`${member.user.username} is streaming at ${activity.url}.`) //console view
+      StreamChannel.send(`${member.user.username} is streaming at ${activity.url}.`)
+    }
+    else{
 
-    console.log(`${member.user.username} is streaming at ${activity.url}.`);
-    StreamChannel.send(`${member.user.username} is streaming at ${activity.url}.`)
-       }
+      
+
+      StreamChannel.messages.fetch({ limit: 100 }).then(messages => {
+        console.log(`Received ${messages.size} messages`)
+    
+        //if (oldPresence == newPresence) return;                          //If user is still streaming delete message 
+       
+        messages.forEach(message => {                                   //Iterate through the messages here with the variable "messages".
+     
+          if (message.content.includes(member.user.username)) message.delete()
+    
+       })
+      })
+    }
     
 
-      })
-    })
+  })
+})
     
       
     

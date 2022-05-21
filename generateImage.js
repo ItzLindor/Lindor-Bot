@@ -1,3 +1,4 @@
+const { SystemFont } = require("@nodegui/nodegui");
 const Canvas = require("canvas")
 const Discord = require("discord.js")
 

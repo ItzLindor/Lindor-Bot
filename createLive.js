@@ -16,6 +16,7 @@ const createLive = async (newPresence) => {
   
   let activities = member.presence.activities;
   console.log(`Activity[1] is ${member.presence.status} by ${member.user.username}`)
+  console.log(activities[0])
 
   //If channel not found
     if(!liveChannel) {
@@ -34,7 +35,7 @@ const createLive = async (newPresence) => {
     }
 
     else{
-      console.log(liveChannel)
+      //console.log(liveChannel)
       return liveChannel
     }
 
