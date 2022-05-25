@@ -1,1 +1,1 @@
-Worker: npx qode index.js
+Worker: node index.js

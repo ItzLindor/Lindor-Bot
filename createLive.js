@@ -14,9 +14,8 @@ const createLive = async (newPresence) => {
   let liveChannel = member.guild.channels.cache.find(channel => channel.name === "live-now");
   
   
-  let activities = member.presence.activities;
-  console.log(`Activity[1] is ${member.presence.status} by ${member.user.username}`)
-  console.log(activities[0])
+  //let activities = member.presence.activities;
+  //console.log(`Activity[1] is ${member.presence.status} by ${member.user.username}`)
 
   //If channel not found
     if(!liveChannel) {
@@ -29,14 +28,13 @@ const createLive = async (newPresence) => {
         .then(result => {
           //console.log(result.id)
           //member.guild.channels.cache.get(result.id).send()
-          return result.id
+          
         })
        
     }
 
     else{
       //console.log(liveChannel)
-      return liveChannel
     }
 
   

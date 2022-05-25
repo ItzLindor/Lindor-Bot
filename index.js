@@ -2,6 +2,7 @@ const { Client, Intents, MessageAttachment, Presence} = require("discord.js");
 const checkWelcome = require("./checkWelcome");
 const generateImage = require("./generateImage");
 const createLive = require("./createLive");
+const sendLive = require("./checkStreamers");
 const async = require("async");
 
 
@@ -31,6 +32,12 @@ const randomFart = fartList[Math.floor(Math.random() * fartList.length)]
 
 
 
+function arrayRemove(arr, value) { 
+    
+  return arr.filter(function(ele){ 
+      return ele != value;
+  });
+}
 
 
 
@@ -164,86 +171,60 @@ client.on("messageCreate", async (msg) => {
 })
 
 
-
+const liveMessages = [];
 client.on("presenceUpdate", async (oldPresence, newPresence) => {
   if (newPresence.user.bot) return;
 
-  const member = newPresence.member;
-  const live = await createLive(newPresence)    //Checks for live-now channel
-  let activities = member.presence.activities;
+  //client.guilds.cache.forEach(async guild => {
+    //console.log(guild.name)
+    const member = newPresence.member;
+    const live = await createLive(newPresence)    //Checks for live-now channel
+    const send = await sendLive(newPresence, liveMessages)
+ // })
+})
   
-  let StreamChannel = newPresence.guild.channels.cache.find(channel => channel.name === "live-now") //finds live-now channel to fetch/send messages
+  
+  // let StreamChannel = newPresence.guild.channels.cache.find(channel => channel.name === "live-now"); //finds live-now channel to fetch/send messages
+  
+  
+
+  
+
+
+  // newPresence.activities.forEach(activity => {    //for each new activity
+  //   if (newPresence.user.bot) return;
+
+  //   if (activity.type == "STREAMING") {          //If streaming, send message to live-now channel
+  //     if (oldPresence == newPresence) return;
+
+  //     if (!liveMessages.includes(member.user.username)){
+  //       console.log(`${member.user.username} is streaming at ${activity.url}.`) //console view
+  //       StreamChannel.send(`${member.user.username} is streaming at ${activity.url}.`)
+  //       liveMessages.push(member.user.username)
+  //   }}
+
+  //   console.log(liveMessages)
+  //   return
+  //     })
+
   // StreamChannel.messages.fetch({ limit: 100 }).then(messages => {
   //   console.log(`Received ${messages.size} messages`);
 
-  //   if (oldPresence == newPresence) return;                          //If user is still streaming delete message 
-   
+  //                             //If user is still streaming delete message 
+    
   //   messages.forEach(message => {                                   //Iterate through the messages here with the variable "messages".
- 
-  //     if (message.content.includes(member.user.username)) message.delete()
+      
+  //     if (message.content.includes(member.user.username)) {
+  //       console.log('deleting')
+  //       liveMessages.splice((liveMessages.indexOf(member.user.username)),1)
+  //       message.delete()
+  //     }
 
-  //  })
+  //   })
   // })
+    
+
   
-
-  console.log(`activities variable: ${activities[0]}`)
-  if (!activities.includes('type')) {          //If streaming, send message to live-now channel
-    StreamChannel.messages.fetch({ limit: 100 }).then(messages => {
-    console.log(`Received ${messages.size} messages`);
- 
-    messages.forEach(message => {                                   //Iterate through the messages here with the variable "messages".
-
-      if (message.content.includes(member.user.username)) message.delete()
-
- })
-})
-  }
-
-
-  newPresence.activities.forEach(activity => {    //for each new activity
-    if (newPresence.user.bot) return;
-
-    
-    if (activity.type === "STREAMING") {          //If streaming, send message to live-now channel
-      console.log(`${member.user.username} is streaming at ${activity.url}.`) //console view
-      StreamChannel.send(`${member.user.username} is streaming at ${activity.url}.`)
-    }
-    else{
-
-      
-
-      StreamChannel.messages.fetch({ limit: 100 }).then(messages => {
-        console.log(`Received ${messages.size} messages`)
-    
-        //if (oldPresence == newPresence) return;                          //If user is still streaming delete message 
-       
-        messages.forEach(message => {                                   //Iterate through the messages here with the variable "messages".
-     
-          if (message.content.includes(member.user.username)) message.delete()
-    
-       })
-      })
-    }
-    
-
-  })
-})
-    
-      
-    
-  
-  // newPresence.guild
-  //if (activities && (activities.state.includes('TWITCH'))) {
-  //   console.log("user is live on twitch")
-  //     return ;
-  // }
-  // else if (member.guild.channels.cache.fetch(role.id)) {
-  //     newPresence.member.roles.remove(role);
-  // }
-
-//}
-  
-
 
 
 
